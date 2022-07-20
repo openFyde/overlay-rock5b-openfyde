@@ -28,14 +28,11 @@ This repository contains the following packages:
 
 
 ## About the board `rock5b-openfyde`
-This board specifically targets:
-
-- [Rock 5 Model B](https://wiki.radxa.com/Rock5/5b):
+ - This board specifically targets the [Rock 5 Model B](https://wiki.radxa.com/Rock5/5b):
 
     ![Rock 5 Model B](https://wiki.radxa.com/mw/images/thumb/2/25/Start_5b.png/660px-Start_5b.png)
 
-- Rock 5 Model A should also be compatible
-
+ - Rock 5 Model A is not compatible with this board
 
 <br>
 
