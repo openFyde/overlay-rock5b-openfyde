@@ -1,0 +1,105 @@
+Index: kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
+===================================================================
+--- kernel-rockchip.orig/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
++++ kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
+@@ -276,7 +276,7 @@ endif
+ endif
+ 
+ ARCH ?= arm64
+-BCMDHD_ROOT = $(src)
++BCMDHD_ROOT = $(S)/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd
+ #$(warning "BCMDHD_ROOT=$(BCMDHD_ROOT)")
+ EXTRA_CFLAGS = $(DHDCFLAGS)
+ EXTRA_CFLAGS += -DDHD_COMPILED=\"$(BCMDHD_ROOT)\"
+Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
+===================================================================
+--- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
++++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
+@@ -6,7 +6,7 @@
+ 
+ / {
+ 	chosen: chosen {
+-		bootargs = "earlycon=uart8250,mmio32,0xfeb50000 console=ttyFIQ0 irqchip.gicv3_pseudo_nmi=0 root=PARTUUID=614e0000-0000 rw rootwait";
++		bootargs = "earlycon=uart8250,mmio32,0xfeb50000 console=ttyFIQ0 irqchip.gicv3_pseudo_nmi=0 rootwait";
+ 	};
+ 
+ 	cspmu: cspmu@fd10c000 {
+Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
+===================================================================
+--- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
++++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
+@@ -88,7 +88,7 @@
+ 		status = "disabled";
+ 		compatible = "rockchip,hdmi";
+ 		rockchip,mclk-fs = <128>;
+-		rockchip,card-name = "rockchip-hdmi0";
++		rockchip,card-name = "HDMI/DP-rockchip-0";
+ 		rockchip,cpu = <&i2s5_8ch>;
+ 		rockchip,codec = <&hdmi0>;
+ 		rockchip,jack-det;
+@@ -98,7 +98,7 @@
+ 		status = "disabled";
+ 		compatible = "rockchip,hdmi";
+ 		rockchip,mclk-fs = <128>;
+-		rockchip,card-name = "rockchip-hdmi1";
++		rockchip,card-name = "HDMI/DP-rockchip-1";
+ 		rockchip,cpu = <&i2s6_8ch>;
+ 		rockchip,codec = <&hdmi1>;
+ 		rockchip,jack-det;
+@@ -1146,21 +1146,25 @@
+ 
+ /* vp0 & vp1 splice for 8K output */
+ &vp0 {
++  cursor-win-id=<ROCKCHIP_VOP2_ESMART0>;
+ 	rockchip,plane-mask = <(1 << ROCKCHIP_VOP2_CLUSTER0 | 1 << ROCKCHIP_VOP2_ESMART0)>;
+-	rockchip,primary-plane = <ROCKCHIP_VOP2_ESMART0>;
++	rockchip,primary-plane = <ROCKCHIP_VOP2_CLUSTER0>;
+ };
+ 
+ &vp1 {
++  cursor-win-id=<ROCKCHIP_VOP2_ESMART1>;
+ 	rockchip,plane-mask = <(1 << ROCKCHIP_VOP2_CLUSTER1 | 1 << ROCKCHIP_VOP2_ESMART1)>;
+-	rockchip,primary-plane = <ROCKCHIP_VOP2_ESMART1>;
++	rockchip,primary-plane = <ROCKCHIP_VOP2_CLUSTER1>;
+ };
+ 
+ &vp2 {
+-	rockchip,plane-mask = <(1 << ROCKCHIP_VOP2_CLUSTER2 | 1 << ROCKCHIP_VOP2_ESMART2)>;
+-	rockchip,primary-plane = <ROCKCHIP_VOP2_ESMART2>;
++  cursor-win-id=<ROCKCHIP_VOP2_ESMART2>;
++	rockchip,plane-mask = <( 1 << ROCKCHIP_VOP2_CLUSTER2 | 1 << ROCKCHIP_VOP2_ESMART2)>;
++	rockchip,primary-plane = <ROCKCHIP_VOP2_CLUSTER2>;
+ };
+ 
+ &vp3 {
+-	rockchip,plane-mask = <(1 << ROCKCHIP_VOP2_CLUSTER3 | 1 << ROCKCHIP_VOP2_ESMART3)>;
+-	rockchip,primary-plane = <ROCKCHIP_VOP2_ESMART3>;
++  cursor-win-id=<ROCKCHIP_VOP2_ESMART3>;
++	rockchip,plane-mask = <( 1 << ROCKCHIP_VOP2_CLUSTER3 | 1 << ROCKCHIP_VOP2_ESMART3)>;
++	rockchip,primary-plane = <ROCKCHIP_VOP2_CLUSTER3>;
+ };
+Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+===================================================================
+--- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
++++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+@@ -631,7 +631,7 @@
+ };
+ 
+ &route_dsi0 {
+-	status = "okay";
++	status = "disabled";
+ 	connect = <&vp3_out_dsi0>;
+ };
+ 
+Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+===================================================================
+--- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
++++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+@@ -30,3 +30,7 @@
+ 		regulator-suspend-microvolt = <3300000>;
+ 	};
+ };
++
++&vop {
++  disable-win-move;
++};

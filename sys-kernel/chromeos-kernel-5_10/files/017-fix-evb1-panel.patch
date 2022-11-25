@@ -1,0 +1,13 @@
+Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+===================================================================
+--- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
++++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+@@ -286,6 +286,8 @@
+ 	reset-gpios = <&gpio2 RK_PB4 GPIO_ACTIVE_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&lcd_rst_gpio>;
++  width-mm = <68>;
++  height-mm = <120>;
+ };
+ 
+ /*

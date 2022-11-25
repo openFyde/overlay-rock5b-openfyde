@@ -1,0 +1,13 @@
+Index: kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/wl_cfg80211.c
+===================================================================
+--- kernel-rockchip.orig/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/wl_cfg80211.c
++++ kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/wl_cfg80211.c
+@@ -14884,7 +14884,7 @@ wl_cfg80211_netdev_notifier_call(struct
+ 
+ 	wdev = ndev_to_wdev(dev);
+ 	if (!wdev) {
+-		WL_ERR(("wdev null. Do nothing\n"));
++		WL_DBG(("wdev null. Do nothing\n"));
+ 		return NOTIFY_DONE;
+ 	}
+ 
