@@ -1,7 +1,7 @@
-Index: kernel-rockchip/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
+Index: linux/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
 ===================================================================
---- kernel-rockchip.orig/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
-+++ kernel-rockchip/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
+--- linux.orig/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
++++ linux/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
 @@ -168,14 +168,14 @@ int kbase_devfreq_opp_helper(struct dev_
  					       new_freq, true, is_set_clk);
  		ret = regulator_set_voltage(mem_reg, new_supply_mem->u_volt,
@@ -21,7 +21,7 @@ Index: kernel-rockchip/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
  			dev_err(dev, "failed to set volt %lu uV for vdd reg\n",
  				new_supply_vdd->u_volt);
  			goto restore_voltage;
-@@ -196,16 +196,16 @@ int kbase_devfreq_opp_helper(struct dev_
+@@ -198,16 +198,16 @@ int kbase_devfreq_opp_helper(struct dev_
  		}
  		ret = regulator_set_voltage(vdd_reg, new_supply_vdd->u_volt,
  					    INT_MAX);
@@ -42,10 +42,10 @@ Index: kernel-rockchip/drivers/gpu/arm/bifrost/backend/gpu/mali_kbase_devfreq.c
  			goto restore_freq;
  		}
  	}
-Index: kernel-rockchip/drivers/cpufreq/rockchip-cpufreq.c
+Index: linux/drivers/cpufreq/rockchip-cpufreq.c
 ===================================================================
---- kernel-rockchip.orig/drivers/cpufreq/rockchip-cpufreq.c
-+++ kernel-rockchip/drivers/cpufreq/rockchip-cpufreq.c
+--- linux.orig/drivers/cpufreq/rockchip-cpufreq.c
++++ linux/drivers/cpufreq/rockchip-cpufreq.c
 @@ -12,7 +12,6 @@
   * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   * GNU General Public License for more details.

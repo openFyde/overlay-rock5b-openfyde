@@ -1,0 +1,13 @@
+Index: linux/scripts/setlocalversion
+===================================================================
+--- linux.orig/scripts/setlocalversion
++++ linux/scripts/setlocalversion
+@@ -77,7 +77,7 @@ scm_version()
+ 			# If only the short version is requested, don't bother
+ 			# running further git commands
+ 			if $short; then
+-				echo "+"
++				echo ""
+ 				return
+ 			fi
+ 			# If we are past a tagged commit (like

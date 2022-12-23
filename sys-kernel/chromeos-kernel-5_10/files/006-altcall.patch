@@ -1,7 +1,7 @@
-Index: kernel-rockchip/arch/arm64/Kconfig
+Index: linux/arch/arm64/Kconfig
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/Kconfig
-+++ kernel-rockchip/arch/arm64/Kconfig
+--- linux.orig/arch/arm64/Kconfig
++++ linux/arch/arm64/Kconfig
 @@ -16,6 +16,7 @@ config ARM64
  	select ARCH_HAS_DEVMEM_IS_ALLOWED
  	select ARCH_HAS_DMA_PREP_COHERENT
@@ -10,10 +10,10 @@ Index: kernel-rockchip/arch/arm64/Kconfig
  	select ARCH_HAS_FAST_MULTIPLIER
  	select ARCH_HAS_FORTIFY_SOURCE
  	select ARCH_HAS_GCOV_PROFILE_ALL
-Index: kernel-rockchip/arch/arm64/include/asm/thread_info.h
+Index: linux/arch/arm64/include/asm/thread_info.h
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/include/asm/thread_info.h
-+++ kernel-rockchip/arch/arm64/include/asm/thread_info.h
+--- linux.orig/arch/arm64/include/asm/thread_info.h
++++ linux/arch/arm64/include/asm/thread_info.h
 @@ -17,6 +17,7 @@ struct task_struct;
  #include <asm/memory.h>
  #include <asm/stack_pointer.h>
@@ -63,10 +63,10 @@ Index: kernel-rockchip/arch/arm64/include/asm/thread_info.h
  }
  
  #endif /* __ASM_THREAD_INFO_H */
-Index: kernel-rockchip/arch/arm64/include/asm/unistd.h
+Index: linux/arch/arm64/include/asm/unistd.h
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/include/asm/unistd.h
-+++ kernel-rockchip/arch/arm64/include/asm/unistd.h
+--- linux.orig/arch/arm64/include/asm/unistd.h
++++ linux/arch/arm64/include/asm/unistd.h
 @@ -20,13 +20,349 @@
   */
  #define __NR_compat_restart_syscall	0
@@ -417,10 +417,10 @@ Index: kernel-rockchip/arch/arm64/include/asm/unistd.h
  #define __NR_compat_clock_gettime64	403
  #define __NR_compat_clock_getres_time64	406
  
-Index: kernel-rockchip/arch/arm64/kernel/syscall.c
+Index: linux/arch/arm64/kernel/syscall.c
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/kernel/syscall.c
-+++ kernel-rockchip/arch/arm64/kernel/syscall.c
+--- linux.orig/arch/arm64/kernel/syscall.c
++++ linux/arch/arm64/kernel/syscall.c
 @@ -190,14 +190,28 @@ static inline void sve_user_discard(void
  
  void do_el0_svc(struct pt_regs *regs)
@@ -450,10 +450,10 @@ Index: kernel-rockchip/arch/arm64/kernel/syscall.c
 +#endif
  }
  #endif
-Index: kernel-rockchip/include/linux/alt-syscall.h
+Index: linux/include/linux/alt-syscall.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/include/linux/alt-syscall.h
++++ linux/include/linux/alt-syscall.h
 @@ -0,0 +1,60 @@
 +#ifndef _ALT_SYSCALL_H
 +#define _ALT_SYSCALL_H
@@ -515,10 +515,10 @@ Index: kernel-rockchip/include/linux/alt-syscall.h
 +#endif
 +
 +#endif /* _ALT_SYSCALL_H */
-Index: kernel-rockchip/security/Kconfig
+Index: linux/security/Kconfig
 ===================================================================
---- kernel-rockchip.orig/security/Kconfig
-+++ kernel-rockchip/security/Kconfig
+--- linux.orig/security/Kconfig
++++ linux/security/Kconfig
 @@ -238,6 +238,7 @@ source "security/loadpin/Kconfig"
  source "security/yama/Kconfig"
  source "security/safesetid/Kconfig"
@@ -542,10 +542,10 @@ Index: kernel-rockchip/security/Kconfig
 +
  endmenu
  
-Index: kernel-rockchip/security/Makefile
+Index: linux/security/Makefile
 ===================================================================
---- kernel-rockchip.orig/security/Makefile
-+++ kernel-rockchip/security/Makefile
+--- linux.orig/security/Makefile
++++ linux/security/Makefile
 @@ -13,6 +13,7 @@ subdir-$(CONFIG_SECURITY_LOADPIN)	+= loa
  subdir-$(CONFIG_SECURITY_SAFESETID)    += safesetid
  subdir-$(CONFIG_SECURITY_LOCKDOWN_LSM)	+= lockdown
@@ -562,10 +562,10 @@ Index: kernel-rockchip/security/Makefile
  obj-$(CONFIG_SECURITY_SELINUX)		+= selinux/
  obj-$(CONFIG_SECURITY_SMACK)		+= smack/
  obj-$(CONFIG_SECURITY)			+= lsm_audit.o
-Index: kernel-rockchip/security/selinux/Kconfig
+Index: linux/security/selinux/Kconfig
 ===================================================================
---- kernel-rockchip.orig/security/selinux/Kconfig
-+++ kernel-rockchip/security/selinux/Kconfig
+--- linux.orig/security/selinux/Kconfig
++++ linux/security/selinux/Kconfig
 @@ -93,6 +93,16 @@ config SECURITY_SELINUX_CHECKREQPROT_VAL
  
  	  If you are unsure how to answer this question, answer 0.
@@ -583,10 +583,10 @@ Index: kernel-rockchip/security/selinux/Kconfig
  config SECURITY_SELINUX_SIDTAB_HASH_BITS
  	int "NSA SELinux sidtab hashtable size"
  	depends on SECURITY_SELINUX
-Index: kernel-rockchip/security/selinux/avc.c
+Index: linux/security/selinux/avc.c
 ===================================================================
---- kernel-rockchip.orig/security/selinux/avc.c
-+++ kernel-rockchip/security/selinux/avc.c
+--- linux.orig/security/selinux/avc.c
++++ linux/security/selinux/avc.c
 @@ -776,6 +776,11 @@ noinline int slow_avc_audit(struct selin
  	struct common_audit_data stack_data;
  	struct selinux_audit_data sad;
@@ -599,10 +599,10 @@ Index: kernel-rockchip/security/selinux/avc.c
  	if (WARN_ON(!tclass || tclass >= ARRAY_SIZE(secclass_map)))
  		return -EINVAL;
  
-Index: kernel-rockchip/security/selinux/hooks.c
+Index: linux/security/selinux/hooks.c
 ===================================================================
---- kernel-rockchip.orig/security/selinux/hooks.c
-+++ kernel-rockchip/security/selinux/hooks.c
+--- linux.orig/security/selinux/hooks.c
++++ linux/security/selinux/hooks.c
 @@ -2007,19 +2007,22 @@ static inline u32 open_file_to_av(struct
  
  /* Hook functions begin here. */
@@ -669,10 +669,10 @@ Index: kernel-rockchip/security/selinux/hooks.c
  	struct file_security_struct *fsec = selinux_file(file);
  	struct dentry *dentry = file->f_path.dentry;
  	struct inode_security_struct *isec;
-Index: kernel-rockchip/arch/arm64/include/asm/syscall.h
+Index: linux/arch/arm64/include/asm/syscall.h
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/include/asm/syscall.h
-+++ kernel-rockchip/arch/arm64/include/asm/syscall.h
+--- linux.orig/arch/arm64/include/asm/syscall.h
++++ linux/arch/arm64/include/asm/syscall.h
 @@ -17,6 +17,8 @@ extern const syscall_fn_t sys_call_table
  extern const syscall_fn_t compat_sys_call_table[];
  #endif
@@ -682,10 +682,10 @@ Index: kernel-rockchip/arch/arm64/include/asm/syscall.h
  static inline int syscall_get_nr(struct task_struct *task,
  				 struct pt_regs *regs)
  {
-Index: kernel-rockchip/arch/arm64/kernel/Makefile
+Index: linux/arch/arm64/kernel/Makefile
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/kernel/Makefile
-+++ kernel-rockchip/arch/arm64/kernel/Makefile
+--- linux.orig/arch/arm64/kernel/Makefile
++++ linux/arch/arm64/kernel/Makefile
 @@ -63,6 +63,9 @@ obj-$(CONFIG_ARM64_MTE)			+= mte.o
  
  obj-y					+= vdso/ probes/
@@ -696,10 +696,10 @@ Index: kernel-rockchip/arch/arm64/kernel/Makefile
  head-y					:= head.o
  extra-y					+= $(head-y) vmlinux.lds
  
-Index: kernel-rockchip/arch/arm64/kernel/alt-syscall.c
+Index: linux/arch/arm64/kernel/alt-syscall.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/arch/arm64/kernel/alt-syscall.c
++++ linux/arch/arm64/kernel/alt-syscall.c
 @@ -0,0 +1,78 @@
 +/*
 + * AArch64 alt-syscall implementation
@@ -779,10 +779,10 @@ Index: kernel-rockchip/arch/arm64/kernel/alt-syscall.c
 +
 +	return 0;
 +}
-Index: kernel-rockchip/include/linux/syscalls.h
+Index: linux/include/linux/syscalls.h
 ===================================================================
---- kernel-rockchip.orig/include/linux/syscalls.h
-+++ kernel-rockchip/include/linux/syscalls.h
+--- linux.orig/include/linux/syscalls.h
++++ linux/include/linux/syscalls.h
 @@ -1371,4 +1371,25 @@ int __sys_getsockopt(int fd, int level,
  		int __user *optlen);
  int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
@@ -809,10 +809,10 @@ Index: kernel-rockchip/include/linux/syscalls.h
 +#endif /* CONFIG_ALT_SYSCALL */
 +
  #endif
-Index: kernel-rockchip/include/uapi/linux/prctl.h
+Index: linux/include/uapi/linux/prctl.h
 ===================================================================
---- kernel-rockchip.orig/include/uapi/linux/prctl.h
-+++ kernel-rockchip/include/uapi/linux/prctl.h
+--- linux.orig/include/uapi/linux/prctl.h
++++ linux/include/uapi/linux/prctl.h
 @@ -155,6 +155,9 @@ struct prctl_mm_map {
  #define PR_SET_PTRACER 0x59616d61
  # define PR_SET_PTRACER_ANY ((unsigned long)-1)
@@ -823,10 +823,10 @@ Index: kernel-rockchip/include/uapi/linux/prctl.h
  #define PR_SET_CHILD_SUBREAPER	36
  #define PR_GET_CHILD_SUBREAPER	37
  
-Index: kernel-rockchip/security/chromiumos/Kconfig
+Index: linux/security/chromiumos/Kconfig
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/Kconfig
++++ linux/security/chromiumos/Kconfig
 @@ -0,0 +1,45 @@
 +config SECURITY_CHROMIUMOS
 +	bool "Chromium OS Security Module"
@@ -873,20 +873,20 @@ Index: kernel-rockchip/security/chromiumos/Kconfig
 +	  When enabled, attempts to open /proc/self/mem for write access
 +	  will always fail.  Write access to this file allows bypassing
 +	  of memory map permissions (such as modifying read-only code).
-Index: kernel-rockchip/security/chromiumos/Makefile
+Index: linux/security/chromiumos/Makefile
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/Makefile
++++ linux/security/chromiumos/Makefile
 @@ -0,0 +1,5 @@
 +obj-$(CONFIG_SECURITY_CHROMIUMOS) := chromiumos_lsm.o
 +
 +chromiumos_lsm-y := inode_mark.o lsm.o securityfs.o utils.o
 +
 +obj-$(CONFIG_ALT_SYSCALL_CHROMIUMOS) += alt-syscall.o
-Index: kernel-rockchip/security/chromiumos/alt-syscall.c
+Index: linux/security/chromiumos/alt-syscall.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/alt-syscall.c
++++ linux/security/chromiumos/alt-syscall.c
 @@ -0,0 +1,538 @@
 +/*
 + * Chromium OS alt-syscall tables
@@ -1426,10 +1426,10 @@ Index: kernel-rockchip/security/chromiumos/alt-syscall.c
 +	return 0;
 +}
 +module_init(chromiumos_alt_syscall_init);
-Index: kernel-rockchip/security/chromiumos/alt-syscall.h
+Index: linux/security/chromiumos/alt-syscall.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/alt-syscall.h
++++ linux/security/chromiumos/alt-syscall.h
 @@ -0,0 +1,385 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -1816,10 +1816,10 @@ Index: kernel-rockchip/security/chromiumos/alt-syscall.h
 +#endif
 +
 +#endif /* ALT_SYSCALL_H */
-Index: kernel-rockchip/security/chromiumos/android_whitelists.h
+Index: linux/security/chromiumos/android_whitelists.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/android_whitelists.h
++++ linux/security/chromiumos/android_whitelists.h
 @@ -0,0 +1,639 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -2460,10 +2460,10 @@ Index: kernel-rockchip/security/chromiumos/android_whitelists.h
 +#endif /* CONFIG_COMPAT */
 +
 +#endif /* ANDROID_WHITELISTS_H */
-Index: kernel-rockchip/security/chromiumos/complete_whitelists.h
+Index: linux/security/chromiumos/complete_whitelists.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/complete_whitelists.h
++++ linux/security/chromiumos/complete_whitelists.h
 @@ -0,0 +1,373 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -2838,10 +2838,10 @@ Index: kernel-rockchip/security/chromiumos/complete_whitelists.h
 +#endif /* CONFIG_COMPAT */
 +
 +#endif /* COMPLETE_WHITELISTS_H */
-Index: kernel-rockchip/security/chromiumos/inode_mark.c
+Index: linux/security/chromiumos/inode_mark.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/inode_mark.c
++++ linux/security/chromiumos/inode_mark.c
 @@ -0,0 +1,353 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -3196,10 +3196,10 @@ Index: kernel-rockchip/security/chromiumos/inode_mark.c
 +
 +	return policy;
 +}
-Index: kernel-rockchip/security/chromiumos/inode_mark.h
+Index: linux/security/chromiumos/inode_mark.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/inode_mark.h
++++ linux/security/chromiumos/inode_mark.h
 @@ -0,0 +1,47 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -3248,10 +3248,10 @@ Index: kernel-rockchip/security/chromiumos/inode_mark.h
 +chromiumos_get_inode_security_policy(
 +	struct dentry *dentry, struct inode *inode,
 +	enum chromiumos_inode_security_policy_type type);
-Index: kernel-rockchip/security/chromiumos/lsm.c
+Index: linux/security/chromiumos/lsm.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/lsm.c
++++ linux/security/chromiumos/lsm.c
 @@ -0,0 +1,274 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -3527,10 +3527,10 @@ Index: kernel-rockchip/security/chromiumos/lsm.c
 +	.name = "chromiumos",
 +	.init = chromiumos_security_init
 +};
-Index: kernel-rockchip/security/chromiumos/read_write_test_whitelists.h
+Index: linux/security/chromiumos/read_write_test_whitelists.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/read_write_test_whitelists.h
++++ linux/security/chromiumos/read_write_test_whitelists.h
 @@ -0,0 +1,56 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -3588,10 +3588,10 @@ Index: kernel-rockchip/security/chromiumos/read_write_test_whitelists.h
 +#endif /* CONFIG_COMPAT */
 +
 +#endif /* READ_WRITE_TESTS_WHITELISTS_H */
-Index: kernel-rockchip/security/chromiumos/securityfs.c
+Index: linux/security/chromiumos/securityfs.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/securityfs.c
++++ linux/security/chromiumos/securityfs.c
 @@ -0,0 +1,241 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -3834,10 +3834,10 @@ Index: kernel-rockchip/security/chromiumos/securityfs.c
 +	return ret;
 +}
 +fs_initcall(chromiumos_init_securityfs);
-Index: kernel-rockchip/security/chromiumos/third_party_whitelists.h
+Index: linux/security/chromiumos/third_party_whitelists.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/third_party_whitelists.h
++++ linux/security/chromiumos/third_party_whitelists.h
 @@ -0,0 +1,252 @@
 +/*
 + * Linux Security Module for Chromium OS
@@ -4091,10 +4091,10 @@ Index: kernel-rockchip/security/chromiumos/third_party_whitelists.h
 +#endif /* CONFIG_COMPAT */
 +
 +#endif /* THIRD_PARTY_WHITELISTS_H */
-Index: kernel-rockchip/security/chromiumos/utils.c
+Index: linux/security/chromiumos/utils.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/utils.c
++++ linux/security/chromiumos/utils.c
 @@ -0,0 +1,157 @@
 +/*
 + * Utilities for the Linux Security Module for Chromium OS
@@ -4253,10 +4253,10 @@ Index: kernel-rockchip/security/chromiumos/utils.c
 +out:
 +	return buffer;
 +}
-Index: kernel-rockchip/security/chromiumos/utils.h
+Index: linux/security/chromiumos/utils.h
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/security/chromiumos/utils.h
++++ linux/security/chromiumos/utils.h
 @@ -0,0 +1,30 @@
 +/*
 + * Utilities for the Linux Security Module for Chromium OS
@@ -4288,10 +4288,10 @@ Index: kernel-rockchip/security/chromiumos/utils.h
 +char *printable_cmdline(struct task_struct *task);
 +
 +#endif /* _SECURITY_CHROMIUMOS_UTILS_H */
-Index: kernel-rockchip/kernel/Makefile
+Index: linux/kernel/Makefile
 ===================================================================
---- kernel-rockchip.orig/kernel/Makefile
-+++ kernel-rockchip/kernel/Makefile
+--- linux.orig/kernel/Makefile
++++ linux/kernel/Makefile
 @@ -51,6 +51,8 @@ obj-y += livepatch/
  obj-y += dma/
  obj-y += entry/
@@ -4301,10 +4301,10 @@ Index: kernel-rockchip/kernel/Makefile
  obj-$(CONFIG_KCMP) += kcmp.o
  obj-$(CONFIG_FREEZER) += freezer.o
  obj-$(CONFIG_PROFILING) += profile.o
-Index: kernel-rockchip/kernel/alt-syscall.c
+Index: linux/kernel/alt-syscall.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/kernel/alt-syscall.c
++++ linux/kernel/alt-syscall.c
 @@ -0,0 +1,66 @@
 +/*
 + * Alternate Syscall Table Infrastructure
@@ -4372,10 +4372,10 @@ Index: kernel-rockchip/kernel/alt-syscall.c
 +
 +	return -ENOENT;
 +}
-Index: kernel-rockchip/kernel/sys.c
+Index: linux/kernel/sys.c
 ===================================================================
---- kernel-rockchip.orig/kernel/sys.c
-+++ kernel-rockchip/kernel/sys.c
+--- linux.orig/kernel/sys.c
++++ linux/kernel/sys.c
 @@ -47,6 +47,7 @@
  
  #include <linux/compat.h>
@@ -4479,10 +4479,10 @@ Index: kernel-rockchip/kernel/sys.c
  /**
   * do_sysinfo - fill in sysinfo struct
   * @info: pointer to buffer to fill
-Index: kernel-rockchip/drivers/android/binder_internal.h
+Index: linux/drivers/android/binder_internal.h
 ===================================================================
---- kernel-rockchip.orig/drivers/android/binder_internal.h
-+++ kernel-rockchip/drivers/android/binder_internal.h
+--- linux.orig/drivers/android/binder_internal.h
++++ linux/drivers/android/binder_internal.h
 @@ -488,12 +488,14 @@ struct binder_proc_ext {
  	const struct cred *cred;
  };
@@ -4500,10 +4500,10 @@ Index: kernel-rockchip/drivers/android/binder_internal.h
  }
  
  /**
-Index: kernel-rockchip/include/linux/lsm_hook_defs.h
+Index: linux/include/linux/lsm_hook_defs.h
 ===================================================================
---- kernel-rockchip.orig/include/linux/lsm_hook_defs.h
-+++ kernel-rockchip/include/linux/lsm_hook_defs.h
+--- linux.orig/include/linux/lsm_hook_defs.h
++++ linux/include/linux/lsm_hook_defs.h
 @@ -26,13 +26,13 @@
   *   #undef LSM_HOOK
   * };
@@ -4525,10 +4525,10 @@ Index: kernel-rockchip/include/linux/lsm_hook_defs.h
  LSM_HOOK(int, 0, ptrace_access_check, struct task_struct *child,
  	 unsigned int mode)
  LSM_HOOK(int, 0, ptrace_traceme, struct task_struct *parent)
-Index: kernel-rockchip/include/linux/security.h
+Index: linux/include/linux/security.h
 ===================================================================
---- kernel-rockchip.orig/include/linux/security.h
-+++ kernel-rockchip/include/linux/security.h
+--- linux.orig/include/linux/security.h
++++ linux/include/linux/security.h
 @@ -252,13 +252,13 @@ extern int security_init(void);
  extern int early_security_init(void);
  
@@ -4595,10 +4595,10 @@ Index: kernel-rockchip/include/linux/security.h
  static inline int security_kernel_act_as(struct cred *cred, u32 secid)
  {
  	return 0;
-Index: kernel-rockchip/security/security.c
+Index: linux/security/security.c
 ===================================================================
---- kernel-rockchip.orig/security/security.c
-+++ kernel-rockchip/security/security.c
+--- linux.orig/security/security.c
++++ linux/security/security.c
 @@ -689,25 +689,25 @@ static void __init lsm_early_task(struct
  
  /* Security operations */
@@ -4640,10 +4640,10 @@ Index: kernel-rockchip/security/security.c
  
  int security_path_chroot(const struct path *path)
  {
-Index: kernel-rockchip/kernel/events/core.c
+Index: linux/kernel/events/core.c
 ===================================================================
---- kernel-rockchip.orig/kernel/events/core.c
-+++ kernel-rockchip/kernel/events/core.c
+--- linux.orig/kernel/events/core.c
++++ linux/kernel/events/core.c
 @@ -11670,9 +11670,8 @@ again:
   * @cpu:		target cpu
   * @group_fd:		group leader event fd
@@ -4670,10 +4670,10 @@ Index: kernel-rockchip/kernel/events/core.c
  /**
   * perf_event_create_kernel_counter
   *
-Index: kernel-rockchip/kernel/time/posix-timers.c
+Index: linux/kernel/time/posix-timers.c
 ===================================================================
---- kernel-rockchip.orig/kernel/time/posix-timers.c
-+++ kernel-rockchip/kernel/time/posix-timers.c
+--- linux.orig/kernel/time/posix-timers.c
++++ linux/kernel/time/posix-timers.c
 @@ -1109,8 +1109,8 @@ int do_clock_adjtime(const clockid_t whi
  	return kc->clock_adj(which_clock, ktx);
  }
@@ -4721,10 +4721,10 @@ Index: kernel-rockchip/kernel/time/posix-timers.c
  SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
  		struct old_timespec32 __user *, tp)
  {
-Index: kernel-rockchip/kernel/time/time.c
+Index: linux/kernel/time/time.c
 ===================================================================
---- kernel-rockchip.orig/kernel/time/time.c
-+++ kernel-rockchip/kernel/time/time.c
+--- linux.orig/kernel/time/time.c
++++ linux/kernel/time/time.c
 @@ -266,7 +266,7 @@ COMPAT_SYSCALL_DEFINE2(settimeofday, str
  #endif
  
@@ -4768,10 +4768,10 @@ Index: kernel-rockchip/kernel/time/time.c
  #endif
  
  /*
-Index: kernel-rockchip/drivers/android/binder.c
+Index: linux/drivers/android/binder.c
 ===================================================================
---- kernel-rockchip.orig/drivers/android/binder.c
-+++ kernel-rockchip/drivers/android/binder.c
+--- linux.orig/drivers/android/binder.c
++++ linux/drivers/android/binder.c
 @@ -2869,7 +2869,7 @@ static void binder_transaction(struct bi
  		size_t added_size;
  		int max_retries = 100;
@@ -4781,10 +4781,10 @@ Index: kernel-rockchip/drivers/android/binder.c
   retry_alloc:
  		ret = security_secid_to_secctx(secid, &secctx, &secctx_sz);
  		if (ret == -ENOMEM && max_retries-- > 0) {
-Index: kernel-rockchip/include/trace/hooks/syscall_check.h
+Index: linux/include/trace/hooks/syscall_check.h
 ===================================================================
---- kernel-rockchip.orig/include/trace/hooks/syscall_check.h
-+++ kernel-rockchip/include/trace/hooks/syscall_check.h
+--- linux.orig/include/trace/hooks/syscall_check.h
++++ linux/include/trace/hooks/syscall_check.h
 @@ -25,7 +25,6 @@ DECLARE_HOOK(android_vh_check_file_open,
  DECLARE_HOOK(android_vh_check_bpf_syscall,
  	TP_PROTO(int cmd, const union bpf_attr *attr, unsigned int size),

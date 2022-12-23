@@ -1,7 +1,7 @@
-Index: kernel-rockchip/security/selinux/hooks.c
+Index: linux/security/selinux/hooks.c
 ===================================================================
---- kernel-rockchip.orig/security/selinux/hooks.c
-+++ kernel-rockchip/security/selinux/hooks.c
+--- linux.orig/security/selinux/hooks.c
++++ linux/security/selinux/hooks.c
 @@ -103,6 +103,9 @@
  #include "netlabel.h"
  #include "audit.h"

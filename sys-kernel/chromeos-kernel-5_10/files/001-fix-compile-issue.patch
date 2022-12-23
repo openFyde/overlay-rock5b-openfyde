@@ -1,8 +1,8 @@
-Index: kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
+Index: linux/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
 ===================================================================
---- kernel-rockchip.orig/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
-+++ kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
-@@ -276,7 +276,7 @@ endif
+--- linux.orig/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
++++ linux/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
+@@ -312,7 +312,7 @@ endif
  endif
  
  ARCH ?= arm64
@@ -11,23 +11,23 @@ Index: kernel-rockchip/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd/Makefile
  #$(warning "BCMDHD_ROOT=$(BCMDHD_ROOT)")
  EXTRA_CFLAGS = $(DHDCFLAGS)
  EXTRA_CFLAGS += -DDHD_COMPILED=\"$(BCMDHD_ROOT)\"
-Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
+Index: linux/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
-+++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
-@@ -6,7 +6,7 @@
+--- linux.orig/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
++++ linux/arch/arm64/boot/dts/rockchip/rk3588-linux.dtsi
+@@ -12,7 +12,7 @@
+ 	};
  
- / {
  	chosen: chosen {
 -		bootargs = "earlycon=uart8250,mmio32,0xfeb50000 console=ttyFIQ0 irqchip.gicv3_pseudo_nmi=0 root=PARTUUID=614e0000-0000 rw rootwait";
 +		bootargs = "earlycon=uart8250,mmio32,0xfeb50000 console=ttyFIQ0 irqchip.gicv3_pseudo_nmi=0 rootwait";
  	};
  
  	cspmu: cspmu@fd10c000 {
-Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
+Index: linux/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
-+++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
+--- linux.orig/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
++++ linux/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
 @@ -88,7 +88,7 @@
  		status = "disabled";
  		compatible = "rockchip,hdmi";
@@ -46,7 +46,7 @@ Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
  		rockchip,cpu = <&i2s6_8ch>;
  		rockchip,codec = <&hdmi1>;
  		rockchip,jack-det;
-@@ -1146,21 +1146,25 @@
+@@ -1190,21 +1190,25 @@
  
  /* vp0 & vp1 splice for 8K output */
  &vp0 {
@@ -78,11 +78,11 @@ Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb.dtsi
 +	rockchip,plane-mask = <( 1 << ROCKCHIP_VOP2_CLUSTER3 | 1 << ROCKCHIP_VOP2_ESMART3)>;
 +	rockchip,primary-plane = <ROCKCHIP_VOP2_CLUSTER3>;
  };
-Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+Index: linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
-+++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
-@@ -631,7 +631,7 @@
+--- linux.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
++++ linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
+@@ -667,7 +667,7 @@
  };
  
  &route_dsi0 {
@@ -91,11 +91,11 @@ Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4.dtsi
  	connect = <&vp3_out_dsi0>;
  };
  
-Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+Index: linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
-+++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
-@@ -30,3 +30,7 @@
+--- linux.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
++++ linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+@@ -44,3 +44,7 @@
  		regulator-suspend-microvolt = <3300000>;
  	};
  };

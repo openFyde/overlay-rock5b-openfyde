@@ -1,7 +1,7 @@
-Index: kernel-rockchip/virt/kvm/Kconfig
+Index: linux/virt/kvm/Kconfig
 ===================================================================
---- kernel-rockchip.orig/virt/kvm/Kconfig
-+++ kernel-rockchip/virt/kvm/Kconfig
+--- linux.orig/virt/kvm/Kconfig
++++ linux/virt/kvm/Kconfig
 @@ -47,7 +47,7 @@ config KVM_GENERIC_DIRTYLOG_READ_PROTECT
  
  config KVM_COMPAT

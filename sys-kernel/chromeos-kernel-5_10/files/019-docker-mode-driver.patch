@@ -1,7 +1,7 @@
-Index: kernel-rockchip/drivers/usb/misc/Kconfig
+Index: linux/drivers/usb/misc/Kconfig
 ===================================================================
---- kernel-rockchip.orig/drivers/usb/misc/Kconfig
-+++ kernel-rockchip/drivers/usb/misc/Kconfig
+--- linux.orig/drivers/usb/misc/Kconfig
++++ linux/drivers/usb/misc/Kconfig
 @@ -89,7 +89,7 @@ config USB_CYTHERM
  	  Say Y here if you want to connect a Cypress USB thermometer
  	  device to your computer's USB port. This device is also known
@@ -20,19 +20,19 @@ Index: kernel-rockchip/drivers/usb/misc/Kconfig
 +  tristate "Set tablet mode by any usb keyboard"
 +  help
 +    Say Y if you want to add a docker event when plug a usb keyboard.
-Index: kernel-rockchip/drivers/usb/misc/Makefile
+Index: linux/drivers/usb/misc/Makefile
 ===================================================================
---- kernel-rockchip.orig/drivers/usb/misc/Makefile
-+++ kernel-rockchip/drivers/usb/misc/Makefile
+--- linux.orig/drivers/usb/misc/Makefile
++++ linux/drivers/usb/misc/Makefile
 @@ -31,3 +31,4 @@ obj-$(CONFIG_USB_CHAOSKEY)		+= chaoskey.
  
  obj-$(CONFIG_USB_SISUSBVGA)		+= sisusbvga/
  obj-$(CONFIG_USB_LINK_LAYER_TEST)	+= lvstest.o
 +obj-$(CONFIG_USB_KBD_DOCKER_EMULATOR) += fyde-vdtb.o
-Index: kernel-rockchip/drivers/usb/misc/fyde-vdtb.c
+Index: linux/drivers/usb/misc/fyde-vdtb.c
 ===================================================================
 --- /dev/null
-+++ kernel-rockchip/drivers/usb/misc/fyde-vdtb.c
++++ linux/drivers/usb/misc/fyde-vdtb.c
 @@ -0,0 +1,181 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*

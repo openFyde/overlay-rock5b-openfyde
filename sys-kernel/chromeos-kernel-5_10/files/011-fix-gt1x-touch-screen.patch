@@ -1,7 +1,7 @@
-Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+Index: linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
 ===================================================================
---- kernel-rockchip.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
-+++ kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
+--- linux.orig/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
++++ linux/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dts
 @@ -48,3 +48,11 @@
  &vop {
    disable-win-move;
@@ -14,10 +14,10 @@ Index: kernel-rockchip/arch/arm64/boot/dts/rockchip/rk3588-evb1-lp4-v10-linux.dt
 +&cluster0_opp_table {
 +  rockchip,pvtm-temp-prop = <244 500>;
 +};
-Index: kernel-rockchip/drivers/input/touchscreen/gt1x/gt1x.c
+Index: linux/drivers/input/touchscreen/gt1x/gt1x.c
 ===================================================================
---- kernel-rockchip.orig/drivers/input/touchscreen/gt1x/gt1x.c
-+++ kernel-rockchip/drivers/input/touchscreen/gt1x/gt1x.c
+--- linux.orig/drivers/input/touchscreen/gt1x/gt1x.c
++++ linux/drivers/input/touchscreen/gt1x/gt1x.c
 @@ -166,11 +166,14 @@ void gt1x_touch_down(s32 x, s32 y, s32 s
  
  	if (gt1x_ics_slot_report) {
@@ -72,10 +72,10 @@ Index: kernel-rockchip/drivers/input/touchscreen/gt1x/gt1x.c
  	input_dev->name = gt1x_ts_name;
  	input_dev->phys = input_dev_phys;
  	input_dev->id.bustype = BUS_I2C;
-Index: kernel-rockchip/drivers/input/touchscreen/gt1x/gt1x_generic.c
+Index: linux/drivers/input/touchscreen/gt1x/gt1x_generic.c
 ===================================================================
---- kernel-rockchip.orig/drivers/input/touchscreen/gt1x/gt1x_generic.c
-+++ kernel-rockchip/drivers/input/touchscreen/gt1x/gt1x_generic.c
+--- linux.orig/drivers/input/touchscreen/gt1x/gt1x_generic.c
++++ linux/drivers/input/touchscreen/gt1x/gt1x_generic.c
 @@ -1311,6 +1311,8 @@ s32 gt1x_touch_event_handler(u8 *data, s
  
  	if (CHK_BIT(cur_event, BIT_TOUCH_KEY | BIT_TOUCH)
