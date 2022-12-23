@@ -1,1 +1,1 @@
-sys-kernel/chromeos-kernel::chipset-rk3588
+sys-kernel/chromeos-kernel-5_10::chipset-rk3588
