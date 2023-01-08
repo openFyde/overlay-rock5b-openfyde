@@ -13,13 +13,15 @@ SLOT="0"
 KEYWORDS="*"
 IUSE=""
 
-RDEPEND=""
+RDEPEND="
+    chromeos-base/rock5b-firmware
+"
 
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"
 
 src_install() {
-  insinto /lib/firmware
-  doins -r ${FILESDIR}/firmware/*
+    insinto "/etc/init"
+    doins ${FILESDIR}/powerd/never-suspend.conf
 }
