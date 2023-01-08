@@ -15,6 +15,7 @@ IUSE=""
 
 RDEPEND="
     chromeos-base/rock5b-firmware
+    app-misc/fan-control-rock5b
 "
 
 DEPEND="${RDEPEND}"
