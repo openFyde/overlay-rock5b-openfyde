@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/pymumu/fan-control-rock5b"
 EGIT_REPO_URI="https://github.com/pymumu/fan-control-rock5b"
 EGIT_COMMIT="8419990c6c0f47a3ed0b55255d7e3591cc5fdab9"
 
-LICENSE="BSD-3"
+LICENSE="BSD-Fyde"
 SLOT="0"
 KEYWORDS="*"
 IUSE=""
@@ -23,7 +23,9 @@ src_prepare()
 {
     eapply_user
     eapply ${FILESDIR}/001-remove-systemd.patch
+    eapply ${FILESDIR}/002-fix-lfs.patch
 }
+
 src_compile()
 {
     tc-export BUILD_PKG_CONFIG

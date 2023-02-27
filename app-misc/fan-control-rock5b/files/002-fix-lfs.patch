@@ -1,0 +1,15 @@
+diff --git a/src/fan-control.c b/src/fan-control.c
+index fb5d1f4fb0d8..22619b03444a 100755
+--- a/src/fan-control.c
++++ b/src/fan-control.c
+@@ -22,6 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
+ 
++#define _FILE_OFFSET_BITS 64
++#define _LARGEFILE_SOURCE
++#define _LARGEFILE64_SOURCE
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <errno.h>
