@@ -8,10 +8,9 @@ main() {
  local zero="${LOADER_DIR}/zero.img"
  local loader="${LOADER_DIR}/spi.img"
 
-
  echo "installing $loader to $target"
- dd if=$zero of=$target status=progress bs=1024 conv=fdatasync
- dd if=$loader of=$target status=progress bs=1024 conv=fdatasync
+ dd if=$zero of=$target status=progress bs=1024 conv=fdatasync,notrunc
+ dd if=$loader of=$target status=progress bs=1024 conv=fdatasync,notrunc
  echo "done"
 }
 
