@@ -1,1 +1,2 @@
 sys-kernel/chromeos-kernel-5_10::chipset-rk3588
+chromeos-base/inaugural-firmware::inaugural
