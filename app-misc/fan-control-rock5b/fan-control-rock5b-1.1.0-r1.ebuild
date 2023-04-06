@@ -1,1 +1,0 @@
-fan-control-rock5b-1.1.0.ebuild
