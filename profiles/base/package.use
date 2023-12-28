@@ -1,1 +1,2 @@
+sys-kernel/linux-firmware linux_firmware_iwlwifi-all linux_firmware_ibt-hw linux_firmware_ibt-9260 linux_firmware_ibt_9560 linux_firmware_ibt_ax200 linux_firmware_ibt_ax201 linux_firmware_ibt_ax211
 app-emulation/archero archero-arm64-force archero-mali
