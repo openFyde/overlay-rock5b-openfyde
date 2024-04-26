@@ -1,0 +1,1 @@
+chromeos-bsp-rock5b-openfyde-base-0.0.1.ebuild

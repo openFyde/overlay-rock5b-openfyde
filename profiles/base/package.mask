@@ -1,0 +1,1 @@
+chromeos-base/os_install_service::baseboard-inaugural
