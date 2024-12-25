@@ -19,10 +19,6 @@ setenv earlycon "on"
 setenv user_overlay "/fyde/overlay"
 setenv stateful_part "1"
 
-if test -e ${devtype} ${devnum}:${distro_bootpart} /boot/first-b.txt; then
-  setenv rootpart 5
-fi
-
 echo "Boot script loaded from ${devtype} ${devnum}:${rootpart}"
 echo "distro_bootpart: ${distro_bootpart}"
 
