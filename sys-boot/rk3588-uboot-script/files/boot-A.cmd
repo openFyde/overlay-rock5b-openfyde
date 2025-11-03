@@ -1,35 +1,37 @@
 # Recompile with:
 # mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/boot.scr
 
-setenv fdtfile #ROCKCHIP_DTS#.dtb
 setenv rootpart 3
-
 setenv load_addr "0x9000000"
 setenv overlay_error "false"
 
-# setenv overlay_prefix rk3588-
+# setenv overlay_prefix rk3588
 # default values
-setenv rootdev "/dev/mmcblk0p1"
 setenv verbosity "1"
 setenv console "both"
-setenv bootlogo "false"
-setenv rootfstype "ext2"
-setenv docker_optimizations "on"
+setenv rootfstype "ext4"
+setenv docker_optimizations "off"
 setenv earlycon "on"
 setenv user_overlay "/fyde/overlay"
 setenv stateful_part "1"
 
-echo "Boot script loaded from ${devtype} ${devnum}:${rootpart}"
-echo "distro_bootpart: ${distro_bootpart}"
+echo "Boot script loaded from ${devtype} ${devnum}:${distro_bootpart}"
 
 part uuid ${devtype} ${devnum}:${rootpart} root_uuid
 
+# here we load ${efi}/boot/Env.txt first, then /fyde/Env.txt can override envs
+if test -e ${devtype} ${devnum}:${distro_bootpart} ${prefix}Env.txt; then
+	load ${devtype} ${devnum}:${distro_bootpart} ${load_addr} ${prefix}/Env.txt
+	env import -t ${load_addr} ${filesize}
+	echo "loaded envs from  ${devtype} ${devnum}:${distro_bootpart} ${prefix}Env.txt"
+fi
+
+# NOTE: stateful ext4 partition reads may fail due to BAD uboot
 if test -e ${devtype} ${devnum}:${stateful_part} /fyde/Env.txt; then
 	load ${devtype} ${devnum}:${stateful_part} ${load_addr} /fyde/Env.txt
 	env import -t ${load_addr} ${filesize}
+	echo "loaded envs from  ${devtype} ${devnum}:1 /fyde/Env.txt"
 fi
-
-echo "prefix: ${prefix}"
 
 if test "${logo}" = "disabled"; then setenv logo "logo.nologo"; fi
 
@@ -37,17 +39,13 @@ if test "${console}" = "display" || test "${console}" = "both"; then setenv cons
 if test "${console}" = "serial" || test "${console}" = "both"; then setenv consoleargs "console=ttyS2,1500000 ${consoleargs}"; fi
 if test "${earlycon}" = "on"; then setenv consoleargs "earlycon ${consoleargs}"; fi
 
-# get PARTUUID of first partition on SD/eMMC the boot script was loaded from
-if test "${devtype}" = "mmc"; then part uuid mmc ${devnum}:${rootpart} partuuid; fi
+echo "rootpart: ${devtype} ${devnum}:${rootpart} uuid:${root_uuid}"
+setenv bootargs rootwait ro cros_debug cros_legacy console=ttyS2,1500000n8 root=PARTUUID=${root_uuid} usbstoragequirks=0x2537:0x1066:u,0x2537:0x1068:u
 
-setenv bootargs rootwait ro cros_debug cros_secure console=ttyS2,1500000n8 root=PARTUUID=${root_uuid} usbstoragequirks=0x2537:0x1066:u,0x2537:0x1068:u
-
-#if test "${docker_optimizations}" = "on"; then setenv bootargs "${bootargs} cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory swapaccount=1"; fi
-
-#load ${devtype} ${devnum} ${ramdisk_addr_r} ${prefix}uInitrd
 load ${devtype} ${devnum}:${rootpart} ${kernel_addr_r} ${prefix}Image
 
-load ${devtype} ${devnum}:${rootpart} ${fdt_addr_r} ${prefix}/rockchip/${fdtfile}
+echo "fdtfile: ${prefix}${fdtfile}"
+load ${devtype} ${devnum}:${rootpart} ${fdt_addr_r} ${prefix}${fdtfile}
 fdt addr ${fdt_addr_r}
 fdt resize 65536
 for overlay_file in ${overlays}; do
@@ -66,7 +64,7 @@ done
 
 if test "${overlay_error}" = "true"; then
 	echo "Error applying DT overlays, restoring original DT"
-	load ${devtype} ${devnum}:${rootpart} ${fdt_addr_r} ${prefix}/rockchip/${fdtfile}
+	load ${devtype} ${devnum}:${rootpart} ${fdt_addr_r} ${prefix}${fdtfile}
 else
 	if load ${devtype} ${devnum}:${rootpart} ${load_addr} ${prefix}/rockchip/overlay/${overlay_prefix}fixup.scr; then
 		echo "Applying kernel provided DT fixup script (${overlay_prefix}fixup.scr)"
@@ -77,6 +75,11 @@ else
 		echo "Applying user provided fixup script (fixup.scr)"
 		source ${load_addr}
 	fi
+fi
+
+if test "${ethernet_phy}" = "rtl8211f"; then
+        fdt set /ethernet@ff540000 tx_delay <0x24>
+        fdt set /ethernet@ff540000 rx_delay <0x18>
 fi
 
 booti ${kernel_addr_r} - ${fdt_addr_r}

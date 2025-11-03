@@ -20,6 +20,6 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"
 
 src_install() {
-    insinto "/usr/share/rock5b"
-    doins ${FILESDIR}/*
+    insinto "/usr/share"
+    doins -r ${FILESDIR}/*
 }

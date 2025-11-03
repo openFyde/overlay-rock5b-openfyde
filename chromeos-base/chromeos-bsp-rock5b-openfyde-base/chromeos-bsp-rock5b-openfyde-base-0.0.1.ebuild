@@ -28,6 +28,15 @@ DEPEND="${RDEPEND}"
 S="${FILESDIR}"
 
 src_install() {
+  insinto /etc/init
+  doins init/board-model-detection.conf
+
   insinto /lib/udev/rules.d
   doins  udev/99-tun.rules
+
+  insinto /usr/share/rock5b-openfyde
+  doins scripts/common.sh
+
+  exeinto /usr/sbin
+  doexe scripts/board_model_detection.sh
 }
