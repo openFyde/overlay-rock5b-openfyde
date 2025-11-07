@@ -3,7 +3,7 @@
 skip_blacklist_check=1
 skip_test_image_content=1
 
-image_dir="${ROOT}/usr/share/rock5b"
+image_dir="${ROOT}/usr/share/rock5/rock5b"
 install_bootloader() {
   local image="$1"
 

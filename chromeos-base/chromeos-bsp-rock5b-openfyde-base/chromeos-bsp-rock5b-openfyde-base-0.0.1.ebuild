@@ -34,7 +34,7 @@ src_install() {
   insinto /lib/udev/rules.d
   doins  udev/99-tun.rules
 
-  insinto /usr/share/rock5b-openfyde
+  insinto /usr/share/rock5
   doins scripts/common.sh
 
   exeinto /usr/sbin
